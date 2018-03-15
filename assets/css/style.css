@@ -1,0 +1,96 @@
+html {
+    box-sizing: border-box; 
+}      
+*, *:before, *after {
+box-sizing: inherit;
+}
+
+body {
+    background: url("../images/train.jpg");
+    background-size: cover;
+    font-family: 'Merriweather', serif;
+    color: #0c0d57;
+}
+
+#container {
+    margin-left: 5%;
+    height: 100%;
+    width: 90%;
+    overflow: scroll;    
+}
+
+h1 {
+    font-size: 50px;
+    font-weight: 600;
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(233, 232, 232, 0.75);
+    border: solid #0c0d57 8px;
+    max-width: 100%;
+    margin-top: 20px;
+}
+
+.train-schedule {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: solid #0c0d57 2px;
+    max-width: 100%
+}
+
+.header {
+    font-size: 14px;
+    padding: 8px;
+    background-color: #0c0d57;
+    max-width: 100%;
+    color: rgb(233, 232, 232);
+}
+
+.panel-body {
+    line-height: 32px;
+    width: 100%;
+    background-color: rgba(233, 232, 232, 0.85);
+}
+
+.table {
+    width: 100%
+}
+
+th, td{
+margin: 0;
+border-bottom: #87878d solid 2px;
+text-align: left;    
+width: 20%;
+padding-left: 10px;
+font-size: 14px;
+}
+
+form {
+ padding: 12px 20px 12px 10px; 
+ line-height: 22px; 
+}
+
+p {
+    font-size: 14px; 
+    margin-top: 10px;
+}
+
+input {
+    font-size: 14px; 
+    margin-top: -10px;
+    line-height: 20px;
+    width: 100%;
+    border: #87878d solid 2px;
+    background-color: rgba(233, 232, 232, 0.46);
+    padding-left: 3px;
+    
+}
+
+#add-button {
+    font-size: 14px;
+    padding: 5px 15px;
+    background-color: #0c0d57;
+    color: rgb(233, 232, 232);
+    border-radius: 6px;
+    margin: 10px 0px;
+    border: solid #0c0d57 2px;
+}
