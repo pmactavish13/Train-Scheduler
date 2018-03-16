@@ -79,13 +79,14 @@ input {
     margin-top: -10px;
     line-height: 20px;
     width: 100%;
+    color: rgb(12, 13, 87, 0.5);
     border: #87878d solid 2px;
     background-color: rgba(233, 232, 232, 0.46);
     padding-left: 3px;
     
 }
 
-#add-button {
+#add-train {
     font-size: 14px;
     padding: 5px 15px;
     background-color: #0c0d57;
@@ -94,3 +95,10 @@ input {
     margin: 10px 0px;
     border: solid #0c0d57 2px;
 }
+
+@media only screen and (max-width: 983px) {
+    img {
+        width: 100%;
+        height: 650px;   
+    } 
+}      

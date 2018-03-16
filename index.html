@@ -39,11 +39,11 @@
                 </thead>    
                 <tbody>
                     <tr>
-                        <td>Cell</td>
-                        <td>Cell</td>
-                        <td>Cell</td>
-                        <td>Cell</td>
-                        <td>Cell</td>
+                        <!-- <td><span id=new-train></span></td>
+                        <td><span id=new-destination></span></td>
+                        <td><span id=new-frequency></span></td>
+                        <td><span id=new-next></span></td>
+                        <td><span id=new-minutes></span></td> -->
                     </tr>
                 </tbody>
             </table>
@@ -57,24 +57,38 @@
         <div class="panel-body">
             <form>
                 <p>Train Name</p>
-                <input type="text" name="trainname" value="train">
+                <input type="text" id="train-input" onfocus="this.value=''" value="train">
                 <br>
                 <p>Destination</p>
-                <input type="text" name="destination" value="destination">
+                <input type="text" id="destination-input" onfocus="this.value=''" value="destination">
                 <br>
                 <p>First Train Time (HH:mm Military Time)</p>
-                <input type="text" name="firsttrain" value="HH:mm">
+                <input type="text" id="first-input" onfocus="this.value=''" value="HH:mm">
                 <br>
                 <p>Frequency (min)</p>
-                <input type="text" name="frequency" value="minutes">
+                <input type="text" id="frequency-input" onfocus="this.value=''" value="minutes">
                  <br>
-                <button id="add-button" type="submit" value="Add Train">Add Train</button>
+                <button id="add-train" type="submit" value="add-train">Add Train</button>
             </form>
         </div>
     </div>
 
-</div>                  
+</div> 
 
-<script src="assets/javascript/app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCVAGh8-JQE4I-ei_Tnn8yFnoJ5QBG6o3o",
+    authDomain: "train-scheduler-10c3f.firebaseapp.com",
+    databaseURL: "https://train-scheduler-10c3f.firebaseio.com",
+    projectId: "train-scheduler-10c3f",
+    storageBucket: "",
+    messagingSenderId: "427917446976"
+  };
+  firebase.initializeApp(config);
+</script>                 
+
+<script src="assets/javascript/train.js"></script>
 </body>
 </html>  
