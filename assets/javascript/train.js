@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-var newTrainSchedule = [];    
+var newTrainSchedule = [{}];    
 
 // Capture Button Click
 $("#add-train").on("click", function(event) {
@@ -32,11 +32,11 @@ newTrainSchedule.push({
 
 // Console log each of the user inputs to confirm we are receiving them correctly
 console.log(newTrainSchedule);
-console.log(newTrainSchedule.newTrain);
-console.log(newTrainSchedule.newDestination);
-console.log(newTrainSchedule.newFirst);
-console.log(newTrainSchedule.newFrequency);
-console.log(typeof(newTrainSchedule));
+console.log(newTrainSchedule[1].newTrain);
+console.log(newTrainSchedule[1].newDestination);
+console.log(newTrainSchedule[1].newFirst);
+console.log(newTrainSchedule[1].newFrequency);
+
 
 // Output all of the new information into the relevant HTML sections
 $('.table').append("<tr><td>" + (newTrainSchedule.newTrain) + "</td><td>" + (newTrainSchedule.newDestination) + "</td><td>" + (newTrainSchedule.newFrequency) + "</td></tr>");
