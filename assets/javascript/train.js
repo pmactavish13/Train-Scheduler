@@ -1,5 +1,16 @@
 $(document).ready(function () {
 
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyCVAGh8-JQE4I-ei_Tnn8yFnoJ5QBG6o3o",
+    authDomain: "train-scheduler-10c3f.firebaseapp.com",
+    databaseURL: "https://train-scheduler-10c3f.firebaseio.com",
+    projectId: "train-scheduler-10c3f",
+    storageBucket: "",
+    messagingSenderId: "427917446976"
+};
+firebase.initializeApp(config);
+
 var newTrainSchedule = [{}];    
 
 // Capture Button Click
