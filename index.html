@@ -38,13 +38,6 @@
                     </tr>
                 </thead>    
                 <tbody>
-                    <tr>
-                        <!-- <td><span id=new-train></span></td>
-                        <td><span id=new-destination></span></td>
-                        <td><span id=new-frequency></span></td>
-                        <td><span id=new-next></span></td>
-                        <td><span id=new-minutes></span></td> -->
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -62,11 +55,11 @@
                 <p>Destination</p>
                 <input type="text" id="destination-input" onfocus="this.value=''" value="destination">
                 <br>
-                <p>First Train Time (HH:mm Military Time)</p>
+                <p>First Train Time (Military Time)</p>
                 <input type="text" id="first-input" onfocus="this.value=''" value="HH:mm">
                 <br>
-                <p>Frequency (min)</p>
-                <input type="text" id="frequency-input" onfocus="this.value=''" value="minutes">
+                <p>Frequency (Minutes)</p>
+                <input type="number" id="frequency-input" onfocus="this.value=''" value="minutes">
                  <br>
                 <button id="add-train" type="submit" value="add-train">Add Train</button>
             </form>
@@ -75,20 +68,8 @@
 
 </div> 
 
-<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyCVAGh8-JQE4I-ei_Tnn8yFnoJ5QBG6o3o",
-    authDomain: "train-scheduler-10c3f.firebaseapp.com",
-    databaseURL: "https://train-scheduler-10c3f.firebaseio.com",
-    projectId: "train-scheduler-10c3f",
-    storageBucket: "",
-    messagingSenderId: "427917446976"
-  };
-  firebase.initializeApp(config);
-</script>                 
-
+<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>                 
+<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 <script src="assets/javascript/train.js"></script>
 </body>
 </html>  

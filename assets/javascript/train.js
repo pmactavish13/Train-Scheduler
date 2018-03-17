@@ -1,21 +1,26 @@
 $(document).ready(function () {
 
-// Initialize Firebase
-var config = {
+ //Initialize Firebase
+ var config = {
     apiKey: "AIzaSyCVAGh8-JQE4I-ei_Tnn8yFnoJ5QBG6o3o",
     authDomain: "train-scheduler-10c3f.firebaseapp.com",
     databaseURL: "https://train-scheduler-10c3f.firebaseio.com",
     projectId: "train-scheduler-10c3f",
     storageBucket: "",
-    messagingSenderId: "427917446976"
+    essagingSenderId: "427917446976"
 };
 firebase.initializeApp(config);
 
-var newTrainSchedule = [{}];    
-
+var newTrain = "";
+var newDestination= "";
+var newFirst = "";
+var newFrequency = 0;
+  
 // Capture Button Click
 $("#add-train").on("click", function(event) {
     event.preventDefault();
+
+    // check that input is valid
     if ($.trim($("#train-input").val()) === "" || $.trim($("#train-input").val()) === "train") {
         return false
     }
@@ -28,32 +33,31 @@ $("#add-train").on("click", function(event) {
     if ($.trim($("#frequency-input").val()) === "" || $.trim($("#frequency-input").val()) === "minutes") {
         return false
     }
+
+    // Clear the input boxes on the screen
     $("#train-input").empty();
     $("#destination-input").empty();
     $("#first-input").empty();
     $("#frequency-input").empty();
+    
+    // Capture User Inputs and store them into variables
+    newTrain = $("#train-input").val().trim(),
+    newDestination = $("#destination-input").val().trim(),
+    newFirst = $("#first-input").val().trim(),
+    newFrequency = $("#frequency-input").val().trim() 
 
-// Capture User Inputs and store them into variables
-newTrainSchedule.push({
-    newTrain: $("#train-input").val().trim(),
-    newDestination: $("#destination-input").val().trim(),
-    newFirst: $("#first-input").val().trim(),
-    newFrequency: $("#frequency-input").val().trim() 
-})
-
-// Console log each of the user inputs to confirm we are receiving them correctly
-console.log(newTrainSchedule);
-console.log(newTrainSchedule[1].newTrain);
-console.log(newTrainSchedule[1].newDestination);
-console.log(newTrainSchedule[1].newFirst);
-console.log(newTrainSchedule[1].newFrequency);
-
+    firebase.database().ref().push({
+        newTrain: newTrain,
+        newDestination: newDestination,
+        newFirst: newFirst,
+        newFrequency: newFrequency,
+        dateAdded: firebase.database.ServerValue.TIMESTAMP 
+    });
+});
 
 // Output all of the new information into the relevant HTML sections
-$('.table').append("<tr><td>" + (newTrainSchedule.newTrain) + "</td><td>" + (newTrainSchedule.newDestination) + "</td><td>" + (newTrainSchedule.newFrequency) + "</td></tr>");
-// $("#new-train").append(newTrain);
-// $("#new-destination").append(newDestination);
-// $("#new-frequency").append(newFrequency);
- 
-});    
+firebase.database().ref().orderByChild("dateAdded").limitToLast(1).on("child_added",function(snapshot){
+    $('.table').append("<tr><td>" + (snapshot.val().newTrain) + "</td><td>" + (snapshot.val().newDestination) + "</td><td>" + (snapshot.val().newFrequency) + "</td></tr>");
+});
+   
 });
