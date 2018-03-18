@@ -1,4 +1,7 @@
+
 $(document).ready(function () {
+
+
 
  //Initialize Firebase
  var config = {
@@ -11,10 +14,17 @@ $(document).ready(function () {
 };
 firebase.initializeApp(config);
 
+window.onload = function() {
+    console.log("hi")
+}
+
 var newTrain = "";
 var newDestination= "";
 var newFirst = "";
 var newFrequency = 0;
+var dateAdded = 0;
+var nextArrival = "";
+var minutesAway = 0;
   
 // Capture Button Click
 $("#add-train").on("click", function(event) {
@@ -46,18 +56,47 @@ $("#add-train").on("click", function(event) {
     newFirst = $("#first-input").val().trim(),
     newFrequency = $("#frequency-input").val().trim() 
 
+    console.log(newTrain);
+    console.log(newDestination);
+    console.log(newFirst);
+    console.log(newFrequency);
+
+    
+
+    //var currentTime = moment();
+    //console.log(moment());
+    
+    var newFirstConverted = moment(newFirst, "HH:mm").subtract(1, "years");
+    console.log(newFirstConverted);
+    
+    var diffTime = moment().diff(moment(newFirstConverted), "minutes");
+    console.log(diffTime);
+    
+    var tRemainder = diffTime % newFrequency;
+    console.log(tRemainder);
+    
+    var minutesAway = newFrequency - tRemainder;
+    
+    var nextTrain = moment().add(minutesAway, "minutes");
+    nextArrival = (moment(nextTrain).format('HH.mm'));
+    //console.log(nextArrival);
+    
     firebase.database().ref().push({
         newTrain: newTrain,
         newDestination: newDestination,
         newFirst: newFirst,
         newFrequency: newFrequency,
-        dateAdded: firebase.database.ServerValue.TIMESTAMP 
+        nextArrival: nextArrival,
+        minutesAway: minutesAway,
+        dateAdded: firebase.database.ServerValue.TIMESTAMP,
     });
 });
 
+
 // Output all of the new information into the relevant HTML sections
 firebase.database().ref().orderByChild("dateAdded").limitToLast(1).on("child_added",function(snapshot){
-    $('.table').append("<tr><td>" + (snapshot.val().newTrain) + "</td><td>" + (snapshot.val().newDestination) + "</td><td>" + (snapshot.val().newFrequency) + "</td></tr>");
+    $('.table').append("<tr><td>" + (snapshot.val().newTrain) + "</td><td>" + (snapshot.val().newDestination) + "</td><td>" + (snapshot.val().newFrequency) + "</td><td>" + (snapshot.val().nextArrival) + "</td><td>" + (snapshot.val().minutesAway) +"</td></tr>");
 });
    
-});
+}); 
+// "</td><td>" + tMinutesTillTrain + 
