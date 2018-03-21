@@ -49,10 +49,10 @@ $(document).ready(function () {
             newFrequency = $("#frequency-input").val().trim()
 
         // Clear the input boxes on the screen
-        $("#train-input").empty();
-        $("#destination-input").empty();
-        $("#first-input").empty();
-        $("#frequency-input").empty();
+        $("#train-input").val("Train");
+        $("#destination-input").val("Destination");
+        $("#first-input").val("HH:mm");
+        $("#frequency-input").val("00");
 
         console.log(newTrain);
         console.log(newDestination);
@@ -95,18 +95,14 @@ $(document).ready(function () {
 
     };
 
-    // Output all of the new information into the relevant HTML sections
-    // ref.orderByChild("dateAdded").limitToLast(1).on("child_added",function(snapshot){
-    // $('.table').append("<tr><td>" + (snapshot.val().train) + "</td><td>" + (snapshot.val().destination) + "</td><td>" + (snapshot.val().frequency) + "</td><td>" + (snapshot.val().nextArrival) + "</td><td>" + (snapshot.val().minutesAway) +"</td></tr>");
-    // });
-
-
-
-
-    // "</td><td>" + tMinutesTillTrain + 
-
     firebase.database().ref().orderByChild("dateAdded").on("child_added", function (snapshot) {
         $('.table').append("<tr><td>" + (snapshot.val().train) + "</td><td>" + (snapshot.val().destination) + "</td><td>" + (snapshot.val().frequency) + "</td><td>" + (snapshot.val().nextArrival) + "</td><td>" + (snapshot.val().minutesAway) + "</td></tr>");
     });
 
-});      
+});        
+
+
+// Output all of the new information into the relevant HTML sections
+    // ref.orderByChild("dateAdded").limitToLast(1).on("child_added",function(snapshot){
+    // $('.table').append("<tr><td>" + (snapshot.val().train) + "</td><td>" + (snapshot.val().destination) + "</td><td>" + (snapshot.val().frequency) + "</td><td>" + (snapshot.val().nextArrival) + "</td><td>" + (snapshot.val().minutesAway) +"</td></tr>");
+    // });
