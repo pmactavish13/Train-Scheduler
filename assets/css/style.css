@@ -7,9 +7,10 @@ box-sizing: inherit;
 
 body {
     background: url("../images/train.jpg");
-    background-size: cover;
+    background-size: 100% cover;
     font-family: 'Merriweather', serif;
     color: #0c0d57;
+    
 }
 
 #container {
