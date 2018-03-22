@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    //Initialize Firebase
+    // Initialize Firebase
     var config = {
         apiKey: "AIzaSyCVAGh8-JQE4I-ei_Tnn8yFnoJ5QBG6o3o",
         authDomain: "train-scheduler-10c3f.firebaseapp.com",
@@ -12,7 +12,7 @@ $(document).ready(function () {
 
     firebase.initializeApp(config);
 
-    // set a reference to the database service
+    //     set a reference to the database service
     var database = firebase.database();
 
     var trainsLogged = "true";
@@ -27,8 +27,9 @@ $(document).ready(function () {
         // if data exists
         if (snapshot.exists()) {
             console.log("YES-Exists");
+            trainsLogged = "true"
             startTimer();
-            trainSchedule(); 
+            trainSchedule();
         };
     });
 
@@ -60,7 +61,7 @@ $(document).ready(function () {
         });
     };
 
-    // Capture Button Click
+    // Capture Button Click input new train
     $("#add-train").on("click", function (event) {
         event.preventDefault();
 
@@ -99,7 +100,7 @@ $(document).ready(function () {
             frequency: frequency,
         });
         newTrain = "true";
-        $('.table').empty();
+        $("tr:not(:first)").remove();
         trainSchedule();
     });
 
