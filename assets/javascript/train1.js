@@ -125,42 +125,33 @@ $(document).ready(function () {
             $("#destination-clicked").val(trainInfo.destination);
             $("#first-clicked").val(trainInfo.first);
             $("#frequency-clicked").val(trainInfo.frequency);
-            debugger
         });
     });
 
     // Capture Button Click input to delete train info
     $("#delete-train").on("click", function (event) {
         event.preventDefault();
+        // get key saved in input box id
         var dataKey = $("#train-clicked").attr("data-key");
+        // access firebase
         var ref = database.ref("trains/" + dataKey)
         ref.once('value', function (snapshot) {
+            //make sure train is there
             if (snapshot === null) {
-                console.log("does not exist")
+                console.log("does not exist")    
             } else {
+            // remove train from screen    
             $("#" + dataKey + " ").remove();
+            // change back to regular screen
             $("#edit-remove").hide();
             $("#train-schedule").show();
             $("#train-schedule-input").show();
+            // delete train
              snapshot.ref.remove();
-            
             }
         })
     })
         
-        // var ref = database.ref("trains/" + dataKey);
-        // ref.once('value', function(snapshot) { 
-        // console.log(snapshot)
-        //     snapshot.forEach(function (childSnapshot) {
-        //    snapshot.ref.remove()
-        //     })
-        //var deleteRef = database.ref('trains/'+ dataKey);
-        
-
-
-    
-
-
 // Capture Button Click input to edit train info
 $("#edit-train").on("click", function (event) {
     event.preventDefault();
