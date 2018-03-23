@@ -23,7 +23,7 @@
         <h1>Train Scheduler</h1>
     </div>
 
-    <div class="train-schedule">
+    <div id="train-schedule" style="display:show">
         <div class="header">
             <h2 class="panel-title">Current Train Schedule</h2>
         </div>
@@ -44,7 +44,7 @@
         </div>
     </div>
 
-    <div class="train-schedule">
+    <div id="train-schedule-input" style="display:show">
         <div class="header">
             <h2 class="panel-title">Add Train</h2>
         </div>
@@ -63,6 +63,31 @@
                 <input type="number" id="frequency-input" onfocus="this.value=''" value="00">
                  <br>
                 <button id="add-train" type="submit" value="add-train">Add Train</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="edit-remove" style="display:none">
+        <div class="header1">
+            <h2 class="panel-title">Edit or Delete Train</h2>
+        </div>
+        <div class="panel-body">
+            <form>
+                <p>Train Name</p>
+                <input type="text" id="train-clicked" value="train">
+                <br>
+                <p>Destination</p>
+                <input type="text" id="destination-clicked" value="destination">
+                <br>
+                <p>First Train Time (Military Time)</p>
+                <input type="text" id="first-clicked" value="HH:mm">
+                <br>
+                <p>Frequency (Minutes)</p>
+                <input type="number" id="frequency-clicked"  value="00">
+                 <br>
+                <button id="edit-train" type="submit" value="edit-train">Edit Train</button>
+                <button id="delete-train" type="submit" value="delete-train">Delete Train</button>
+                <button id="add-train" type="submit" value="return-train">Return to Schedule</button>
             </form>
         </div>
     </div>
