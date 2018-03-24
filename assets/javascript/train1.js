@@ -26,7 +26,6 @@ $(document).ready(function () {
     database.ref('trains').limitToFirst(1).once('value', function (snapshot) {
         // if data exists
         if (snapshot.exists()) {
-            console.log("YES-Exists");
             trainsLogged = "true"
             startTimer();
             trainSchedule();
@@ -208,9 +207,9 @@ $(document).ready(function () {
             timeTilUpdate = 60;
             startTimer()
             var ref = database.ref("trains");
-            ref.once('value', function (snapshot) {
+            ref.once('value', function(snapshot) {
                 // pull time data for each train
-                snapshot.forEach(function (childSnapshot) {
+                snapshot.forEach(function(childSnapshot) {
                     first = childSnapshot.val().first
                     frequency = childSnapshot.val().frequency;
                     // calculate nextArrival and minutesAway
