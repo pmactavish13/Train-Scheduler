@@ -22,11 +22,12 @@ $(document).ready(function () {
     var first;
     var frequency;
     var timeTilUpdate = 60;
+    var regEx = RegExp("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$");
 
     database.ref('trains').limitToFirst(1).once('value', function (snapshot) {
         // if data exists
         if (snapshot.exists()) {
-            trainsLogged = "true"
+            trainsLogged = "true";
             startTimer();
             trainSchedule();
         };
@@ -39,7 +40,7 @@ $(document).ready(function () {
         ref.once('value', function (snapshot) {
             // pull time data for each train
             snapshot.forEach(function (childSnapshot) {
-                first = childSnapshot.val().first
+                first = childSnapshot.val().first;
                 frequency = childSnapshot.val().frequency;
                 // calculate nextArrival and minutesAway
                 var firstConverted = moment(first, "HH:mm").subtract(1, "years");
@@ -65,17 +66,21 @@ $(document).ready(function () {
         event.preventDefault();
         // check that input is valid
         if ($.trim($("#train-input").val()) === "" || $.trim($("#train-input").val()) === "train") {
-            return false
-        }
+            $("#train-input").val("Enter a valid train");
+            return false;
+        };
         if ($.trim($("#destination-input").val()) === "" || $.trim($("#destination-input").val()) === "destination") {
-            return false
-        }
-        if ($.trim($("#first-input").val()) === "" || $.trim($("#first-input").val()) === "HH:mm") {
-            return false
-        }
+            $("#destination-input").val("Enter a valid destination");
+            return false;
+        };
+        if ($.trim($("#first-input").val()) === "" || $.trim($("#first-input").val()) === "HH:mm" ||regEx.test($.trim($("#first-input").val())) == false) {
+            $("#first-input").val("Enter a valid military time: HH:mm");
+            return false;
+        };
         if ($.trim($("#frequency-input").val()) === "" || $.trim($("#frequency-input").val()) === "minutes") {
-            return false
-        }
+            $("#frequency-input").val("Enter a valid frequency");
+            return false;
+        }; 
 
         // Capture User Inputs and store them into variables
         train = $("#train-input").val().trim();
@@ -113,11 +118,8 @@ $(document).ready(function () {
         // access the firebase database
         var ref = database.ref("trains/" + changeTrain);
         ref.once('value', function (snapshot) {
-            console.log(snapshot)
             var myJSON = JSON.stringify(snapshot);
-            console.log(myJSON)
-            var trainInfo = JSON.parse(myJSON)
-            console.log(trainInfo.train)
+            var trainInfo = JSON.parse(myJSON);
             // Change the input boxes on the screen to show the info of the train clicked
             $("#train-clicked").val(trainInfo.train);
             $("#train-clicked").attr('data-key', changeTrain);
@@ -133,12 +135,10 @@ $(document).ready(function () {
         // get key saved in input box id
         var dataKey = $("#train-clicked").attr("data-key");
         // access firebase
-        var ref = database.ref("trains/" + dataKey)
+        var ref = database.ref("trains/" + dataKey);
         ref.once('value', function (snapshot) {
             //make sure train is there
-            if (snapshot === null) {
-                console.log("does not exist")
-            } else {
+            if (snapshot !== null) {
                 // remove train from screen    
                 $("#" + dataKey + " ").remove();
                 // change back to regular screen
@@ -147,9 +147,9 @@ $(document).ready(function () {
                 $("#train-schedule-input").show();
                 // delete train
                 snapshot.ref.remove();
-            }
-        })
-    })
+            };
+        });
+    });
 
     // Capture Button Click input to edit train info
     $("#edit-train").on("click", function (event) {
@@ -161,13 +161,16 @@ $(document).ready(function () {
         destination = $("#destination-clicked").val().trim();
         first = $("#first-clicked").val().trim();
         frequency = $("#frequency-clicked").val().trim();
+        // validate first train input
+        if (first === "" || first === "HH:mm" ||regEx.test(first) == false) {
+            $("#first-clicked").val("Enter a valid military time: HH:mm");
+            return false;
+        }
         // access firebase
         var ref = database.ref("trains/" + dataKey)
         ref.once('value', function (snapshot) {
             //make sure train is there
-            if (snapshot === null) {
-                console.log("does not exist")
-            } else {
+            if (snapshot !== null) {
                 // edit train 
                 database.ref('trains/' + dataKey).set({
                     dateAdded: firebase.database.ServerValue.TIMESTAMP,
@@ -210,7 +213,7 @@ $(document).ready(function () {
             ref.once('value', function(snapshot) {
                 // pull time data for each train
                 snapshot.forEach(function(childSnapshot) {
-                    first = childSnapshot.val().first
+                    first = childSnapshot.val().first;
                     frequency = childSnapshot.val().frequency;
                     // calculate nextArrival and minutesAway
                     var firstConverted = moment(first, "HH:mm").subtract(1, "years");
@@ -229,4 +232,3 @@ $(document).ready(function () {
         };
     };
 });
-
